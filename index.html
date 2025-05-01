@@ -1,12 +1,90 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resistance.circle</title>
+  <title>Resistance Circle</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: monospace;
+      background-color: #0a0a0a;
+      color: #00ff88;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .sidebar {
+      width: 20%;
+      background-color: #111;
+      border-right: 1px solid #333;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    .main {
+      width: 60%;
+      padding: 10px;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .comments {
+      width: 20%;
+      background-color: #111;
+      border-left: 1px solid #333;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    iframe {
+      width: 100%;
+      height: 90%;
+      border: none;
+    }
+    .comment-box {
+      margin-top: 10px;
+    }
+  </style>
 </head>
-<body style="background-color:#000; color:#fff; font-family:monospace; text-align:center; padding:4rem;">
-  <h1>Resistance.circle ist live.</h1>
-  <p>Der Proof of Concept funktioniert.</p>
+<body>
+  <div class="sidebar">
+    <h3>Ordnerstruktur</h3>
+    <ul>
+      <li><a href="#" onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/Resistance.circle/main/core_dump/Assets/Zwerge_1-7/Zwerg_Eins/E6_Manifest_1.pdf')">Zwerg Eins: Manifest 1</a></li>
+      <li><a href="#" onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/Resistance.circle/main/core_dump/Kraken/Abandon/Drizella/E6_DRZ_cam.mp4')">Drizella: Cam Video</a></li>
+      <li><a href="#" onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/Resistance.circle/main/Fabrik/Cam_7.png')">Fabrik: Cam 7</a></li>
+    </ul>
+  </div>
+  <div class="main">
+    <h2>Dokumentenanzeige</h2>
+    <iframe id="viewer" src=""></iframe>
+  </div>
+  <div class="comments">
+    <h3>Kommentare</h3>
+    <div id="comment-list">
+      <p>Kommentare werden hier erscheinen.</p>
+    </div>
+    <div class="comment-box">
+      <textarea id="comment" rows="4" style="width: 100%"></textarea>
+      <button onclick="submitComment()">Absenden</button>
+    </div>
+  </div>
+
+  <script>
+    function loadDoc(url) {
+      document.getElementById('viewer').src = url;
+    }
+    function submitComment() {
+      const text = document.getElementById('comment').value;
+      if (text.trim() === '') return;
+      const list = document.getElementById('comment-list');
+      const newComment = document.createElement('p');
+      newComment.innerText = text;
+      list.appendChild(newComment);
+      document.getElementById('comment').value = '';
+    }
+  </script>
 </body>
 </html>
