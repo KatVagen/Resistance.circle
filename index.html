@@ -1,89 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resistance Circle</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resistance.Circle</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
+      background-color: #0f0f0f;
+      color: #dcdcdc;
       font-family: monospace;
-      background-color: #0a0a0a;
-      color: #00ff88;
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-    }
-    .sidebar {
-      width: 20%;
-      background-color: #111;
-      border-right: 1px solid #333;
-      overflow-y: auto;
-      padding: 10px;
-    }
-    .main {
-      width: 60%;
-      padding: 10px;
-      background-color: #000;
       display: flex;
       flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background-color: #1a1a1a;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
     }
-    .comments {
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2em;
+      color: #00ff88;
+    }
+
+    #login {
+      font-size: 0.9em;
+      color: #999;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .sidebar {
       width: 20%;
-      background-color: #111;
-      border-left: 1px solid #333;
-      overflow-y: auto;
+      background-color: #121212;
       padding: 10px;
+      overflow-y: auto;
+      border-right: 1px solid #333;
     }
-    iframe {
+
+    .sidebar h2 {
+      font-size: 0.9em;
+      color: #00ff88;
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding-left: 10px;
+    }
+
+    .sidebar ul li {
+      margin: 5px 0;
+      cursor: pointer;
+      color: #bbb;
+    }
+
+    .sidebar ul li:hover {
+      color: #fff;
+    }
+
+    .viewer {
+      width: 50%;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+    }
+
+    .viewer iframe {
       width: 100%;
-      height: 90%;
+      height: 100%;
       border: none;
     }
-    .comment-box {
-      margin-top: 10px;
+
+    .comments {
+      width: 30%;
+      background-color: #111;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid #333;
+    }
+
+    .comments h3 {
+      font-size: 0.9em;
+      color: #00ff88;
+      margin-bottom: 10px;
+    }
+
+    .comment-list {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+
+    .comment {
+      margin-bottom: 8px;
+      font-size: 0.85em;
+    }
+
+    .comment strong {
+      color: #00ffaa;
+    }
+
+    .comment-form input {
+      width: 100%;
+      padding: 6px;
+      background-color: #1e1e1e;
+      border: none;
+      color: #ccc;
+      font-size: 0.85em;
     }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <h3>Ordnerstruktur</h3>
-    <ul>
-      <li><a href="#" onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/Resistance.circle/main/core_dump/Assets/Zwerge_1-7/Zwerg_Eins/E6_Manifest_1.pdf')">Zwerg Eins: Manifest 1</a></li>
-      <li><a href="#" onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/Resistance.circle/main/core_dump/Kraken/Abandon/Drizella/E6_DRZ_cam.mp4')">Drizella: Cam Video</a></li>
-      <li><a href="#" onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/Resistance.circle/main/Fabrik/Cam_7.png')">Fabrik: Cam 7</a></li>
-    </ul>
-  </div>
-  <div class="main">
-    <h2>Dokumentenanzeige</h2>
-    <iframe id="viewer" src=""></iframe>
-  </div>
-  <div class="comments">
-    <h3>Kommentare</h3>
-    <div id="comment-list">
-      <p>Kommentare werden hier erscheinen.</p>
+  <header>
+    <h1>Resistance.Circle</h1>
+    <div id="login">[ login / registrieren ]</div>
+  </header>
+  <main>
+    <div class="sidebar">
+      <h2>core_dump</h2>
+      <ul id="file-list">
+        <li onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/vince-desktop/main/E6/E6_DRZ_cam.mp4')">DRZ_cam.mp4</li>
+        <li onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/vince-desktop/main/E6/E6_JAE_cam.mp4')">JAE_cam.mp4</li>
+        <li onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/vince-desktop/main/E6/E6_PME_cam.mp4')">PME_cam.mp4</li>
+        <li onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/vince-desktop/main/E6/E6_RUM_cam.mp4')">RUM_cam.mp4</li>
+        <li onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/vince-desktop/main/E6/E6_SPM_cam.mp4')">SPM_cam.mp4</li>
+        <li onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/vince-desktop/main/E6/E6_manifest_2.pdf')">manifest_2.pdf</li>
+        <li onclick="loadDoc('https://raw.githubusercontent.com/KatVagen/vince-desktop/main/E2/E2_906.jpg')">906.jpg</li>
+      </ul>
     </div>
-    <div class="comment-box">
-      <textarea id="comment" rows="4" style="width: 100%"></textarea>
-      <button onclick="submitComment()">Absenden</button>
+    <div class="viewer" id="viewer">
+      <span style="color: #666; font-size: 0.9em;">Wähle links ein Dokument aus</span>
     </div>
-  </div>
+    <div class="comments">
+      <h3>Kommentare</h3>
+      <div class="comment-list" id="comment-list">
+        <div class="comment"><strong>User_01:</strong> Das war heftig!</div>
+        <div class="comment"><strong>SinisterFan:</strong> Was, wenn das kein Zufall war?</div>
+      </div>
+      <div class="comment-form">
+        <input type="text" placeholder="Dein Kommentar..." />
+      </div>
+    </div>
+  </main>
 
   <script>
     function loadDoc(url) {
-      document.getElementById('viewer').src = url;
-    }
-    function submitComment() {
-      const text = document.getElementById('comment').value;
-      if (text.trim() === '') return;
-      const list = document.getElementById('comment-list');
-      const newComment = document.createElement('p');
-      newComment.innerText = text;
-      list.appendChild(newComment);
-      document.getElementById('comment').value = '';
+      const viewer = document.getElementById("viewer");
+      let content = "";
+
+      if (url.endsWith(".pdf")) {
+        content = `<iframe src="https://docs.google.com/gview?url=${url}&embedded=true"></iframe>`;
+      } else if (url.endsWith(".mp4")) {
+        content = `<video controls style="max-width: 100%; max-height: 100%;"><source src="${url}" type="video/mp4"></video>`;
+      } else {
+        content = `<img src="${url}" style="max-width: 100%; max-height: 100%;" />`;
+      }
+
+      viewer.innerHTML = content;
     }
   </script>
 </body>
